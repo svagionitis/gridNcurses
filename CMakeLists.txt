@@ -1,0 +1,29 @@
+PROJECT(gridNcurses C)
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0)
+
+SET(CMAKE_COLOR_MAKEFILE ON)
+SET(CMAKE_VERBOSE_MAKEFILE ON)
+
+SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+
+FIND_PACKAGE(Threads REQUIRED)
+FIND_PACKAGE(Curses REQUIRED)
+
+SET(CMAKE_C_FLAGS "-D_BSD_SOURCE -g -std=c99 -Wall -W -O2")
+
+SET(LIBS ${CMAKE_THREAD_LIBS_INIT} ncurses)
+
+INCLUDE_DIRECTORIES(include)
+
+# Set the source file
+SET(GRIDNCURSES_SRC src/utils.c
+		    src/header.c
+		    src/footer.c
+		    src/control.c
+		    src/grid.c
+		    src/main.c)
+
+ADD_EXECUTABLE(grid ${GRIDNCURSES_SRC})
+
+TARGET_LINK_LIBRARIES (grid ${LIBS})
