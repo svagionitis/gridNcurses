@@ -25,7 +25,7 @@ void print_grid(WINDOW *win)
 
     for(int32_t y=0;y<=y_max_height;y+=y_grid_step)
         for(int32_t x=0;x<=x_max_height;x+=x_grid_step)
-            color_str(win, y, x, 0, 0, "O");
+            color_str(win, y, x, 0, 0, "+");
 
 
     wnoutrefresh(win);
