@@ -20,8 +20,8 @@ void print_grid(WINDOW *win)
     int32_t y_grid_step = win_set.maxGridHeight / g.y_grid;
     int32_t x_grid_step = win_set.maxGridWidth / g.x_grid;
 
-    int32_t y_max_height = y_grid_step * g.y_grid;
-    int32_t x_max_width = x_grid_step * g.x_grid;
+    int32_t y_max_height = win_set.maxGridHeight - (win_set.maxGridHeight % g.y_grid);
+    int32_t x_max_width = win_set.maxGridWidth - (win_set.maxGridWidth % g.x_grid);
 
     for(int32_t y=0;y<=y_max_height;y++)
         for(int32_t x=0;x<=x_max_width;x++)
