@@ -31,6 +31,8 @@ void print_grid(WINDOW *win)
                 color_str(win, y, x, 0, 0, "-");
             else if (!(x % x_grid_step))
                 color_str(win, y, x, 0, 0, "|");
+            else if ((y % y_grid_step) || (x % x_grid_step))
+                color_str(win, y, x, 0, 0, "X");
 
 
     wnoutrefresh(win);
