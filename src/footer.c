@@ -5,6 +5,7 @@
 #include "window.h"
 #include "footer.h"
 #include "utils.h"
+#include "grid.h"
 
 extern window_settings_t win_set;
 
@@ -25,6 +26,11 @@ void print_footer(WINDOW *win)
 
     memset(buf, '\0', sizeof buf);
     char_ret[i] = snprintf(buf, sizeof buf, "speed: %d", win_set.speed);
+    color_str(win, 0, ++footer_width, 0, 0, buf);
+    footer_width += char_ret[i++];
+
+    memset(buf, '\0', sizeof buf);
+    char_ret[i] = snprintf(buf, sizeof buf, "grid: %dx%d", g.x_grid, g.y_grid);
     color_str(win, 0, ++footer_width, 0, 0, buf);
     footer_width += char_ret[i++];
 
