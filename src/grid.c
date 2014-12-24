@@ -9,6 +9,8 @@ void print_grid(WINDOW *win)
 {
     getmaxyx(win, win_set.maxGridHeight, win_set.maxGridWidth);
 
+    wclear(win);
+
     // If the grid is larger than the maximum height
     // or width, then set it to max height or width
     if (g.y_grid > win_set.maxGridHeight)
@@ -46,7 +48,6 @@ void print_grid(WINDOW *win)
                 color_str(win, new_y, new_x, 0, 0, "X");
         }
     }
-
 
     wnoutrefresh(win);
 }
