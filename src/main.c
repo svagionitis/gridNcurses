@@ -30,8 +30,6 @@ int main(int argc, char *argv[])
 
 
     sscanf(argv[1],"%ux%u", &g.x_grid, &g.y_grid);
-    fprintf(stdout, "Grid %u x %u\n", g.x_grid, g.y_grid);
-
 
     initscr();
 
