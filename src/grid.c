@@ -11,22 +11,29 @@ void print_grid(WINDOW *win)
 
     wclear(win);
 
+    generate_grid(win, win_set.maxGridHeight, win_set.maxGridWidth);
+
+    wnoutrefresh(win);
+}
+
+void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width)
+{
     // If the grid is larger than the maximum height
     // or width, then set it to max height or width
-    if (g.y_grid > win_set.maxGridHeight)
-        g.y_grid = win_set.maxGridHeight;
+    if (g.y_grid > grid_win_height)
+        g.y_grid = grid_win_height;
 
-    if (g.x_grid > win_set.maxGridWidth)
-        g.x_grid = win_set.maxGridWidth;
+    if (g.x_grid > grid_win_width)
+        g.x_grid = grid_win_width;
 
-    int32_t y_grid_step = win_set.maxGridHeight / g.y_grid;
-    int32_t x_grid_step = win_set.maxGridWidth / g.x_grid;
+    int32_t y_grid_step = grid_win_height / g.y_grid;
+    int32_t x_grid_step = grid_win_width / g.x_grid;
 
-    int32_t y_remaining = win_set.maxGridHeight % g.y_grid;
-    int32_t x_remaining = win_set.maxGridWidth % g.x_grid;
+    int32_t y_remaining = grid_win_height % g.y_grid;
+    int32_t x_remaining = grid_win_width % g.x_grid;
 
-    int32_t new_max_height = win_set.maxGridHeight - y_remaining;
-    int32_t new_max_width = win_set.maxGridWidth - x_remaining;
+    int32_t new_max_height = grid_win_height - y_remaining;
+    int32_t new_max_width = grid_win_width - x_remaining;
 
     for(int32_t y = 0;y <= new_max_height;y++)
     {
@@ -37,18 +44,19 @@ void print_grid(WINDOW *win)
         for(int32_t x = 0;x <= new_max_width;x++)
         {
             int32_t new_x = x + (x_remaining / 2);
+            char print_char = 0;
 
             if (!(y % y_grid_step) && !(x % x_grid_step))
-                color_str(win, new_y, new_x, 0, 0, "+");
+                print_char = '+';
             else if (!(y % y_grid_step))
-                color_str(win, new_y, new_x, 0, 0, "-");
+                print_char = '-';
             else if (!(x % x_grid_step))
-                color_str(win, new_y, new_x, 0, 0, "|");
+                print_char = '|';
             else if ((y % y_grid_step) || (x % x_grid_step))
-                color_str(win, new_y, new_x, 0, 0, "X");
+                print_char = 'X';
+
+            color_str(win, new_y, new_x, 0, 0, (const char *)&print_char);
         }
     }
-
-    wnoutrefresh(win);
 }
 
