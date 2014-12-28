@@ -11,12 +11,12 @@ void print_grid(WINDOW *win)
 
     wclear(win);
 
-    generate_grid(win, win_set.maxGridHeight, win_set.maxGridWidth);
+    generate_grid(win, win_set.maxGridHeight, win_set.maxGridWidth, color_str);
 
     wnoutrefresh(win);
 }
 
-void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width)
+void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width, void (*print_scr)(WINDOW *, uint32_t, uint32_t, int16_t, int16_t, const char *))
 {
     // If the grid is larger than the maximum height
     // or width, then set it to max height or width
@@ -62,7 +62,7 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width)
                 snprintf(print_char, sizeof(print_char), "%d", num);
             }
 
-            color_str(win, new_y, new_x, 0, 0, print_char);
+            (*print_scr)(win, new_y, new_x, 0, 0, print_char);
         }
     }
 }

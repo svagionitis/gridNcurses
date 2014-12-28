@@ -15,6 +15,6 @@ grid_t g;
 WINDOW *grid_win;
 
 void print_grid(WINDOW *);
-void generate_grid(WINDOW *, int32_t, int32_t);
+void generate_grid(WINDOW *, int32_t, int32_t, void (*print_scr)(WINDOW *, uint32_t, uint32_t, int16_t, int16_t, const char *));
 
 #endif /* GRID_H */
