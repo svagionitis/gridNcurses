@@ -72,6 +72,7 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
                 // It doesn't work well with two digits and more numbers.
                 // It prints only the first digit.
                 print_num_in_all_grid(((y / y_grid_step) * g.y_grid) + (x / x_grid_step), print_char);
+                //print_num_in_grid(2, 3, x, y, x_grid_step, y_grid_step, 7, print_char);
             }
 
             (*print_scr)(win, new_y, new_x, 0, 0, print_char);
@@ -82,5 +83,15 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
 void print_num_in_all_grid(int32_t num, char *str_out)
 {
     sprintf(str_out, "%d", num);
+}
+
+void print_num_in_grid(int32_t grid_x, int32_t grid_y, int32_t x, int32_t y, int32_t x_step, int32_t y_step, int32_t num, char *str_out)
+{
+    if (grid_x == (x / x_step) &&
+        grid_y == (y / y_step))
+        sprintf(str_out, "%d", num);
+    else
+        sprintf(str_out, " ");
+
 }
 
