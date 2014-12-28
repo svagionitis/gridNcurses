@@ -71,12 +71,16 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
                 // Print in each grid the number of the grid "linearly"
                 // It doesn't work well with two digits and more numbers.
                 // It prints only the first digit.
-                int32_t num = ((y / y_grid_step) * g.y_grid) + (x / x_grid_step);
-                snprintf(print_char, sizeof(print_char), "%d", num);
+                print_num_in_all_grid(((y / y_grid_step) * g.y_grid) + (x / x_grid_step), print_char);
             }
 
             (*print_scr)(win, new_y, new_x, 0, 0, print_char);
         }
     }
+}
+
+void print_num_in_all_grid(int32_t num, char *str_out)
+{
+    sprintf(str_out, "%d", num);
 }
 
