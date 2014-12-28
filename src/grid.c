@@ -5,6 +5,11 @@
 
 extern window_settings_t win_set;
 
+/**
+ * \brief   Print the grid on screen, in the specified window.
+ *
+ * \param   win Window that the grid will be printed.
+ */
 void print_grid(WINDOW *win)
 {
     getmaxyx(win, win_set.maxGridHeight, win_set.maxGridWidth);
@@ -16,10 +21,18 @@ void print_grid(WINDOW *win)
     wnoutrefresh(win);
 }
 
+/**
+ * \brief   Generate the grid which will be printed on the specified window.
+ *
+ * \param   win             Window that the grid will be printed.
+ * \param   grid_win_height The height of the grid window.
+ * \param   grid_win_width  The width of the grid window.
+ * \param   print_scr       The function that will print the grid on screen.
+ */
 void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width, void (*print_scr)(WINDOW *, uint32_t, uint32_t, int16_t, int16_t, const char *))
 {
-    // If the grid is larger than the maximum height
-    // or width, then set it to max height or width
+    // If the grid is larger than the grid window height
+    // or width, then set it to this height or width
     if (g.y_grid > grid_win_height)
         g.y_grid = grid_win_height;
 
