@@ -71,9 +71,9 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
                 // Print in each grid the number of the grid "linearly"
                 // It doesn't work well with two digits and more numbers.
                 // It prints only the first digit.
-                print_num_in_all_grid(((y / y_grid_step) * g.y_grid) + (x / x_grid_step), print_char);
+                //print_num_in_all_grid(((y / y_grid_step) * g.y_grid) + (x / x_grid_step), print_char);
                 //print_num_in_grid(2, 3, x, y, x_grid_step, y_grid_step, 7, print_char);
-                //print_x_in_grid(1, 1, x, y, x_grid_step, y_grid_step, print_char);
+                print_x_in_grid(1, 1, x, y, x_grid_step, y_grid_step, print_char);
             }
 
             (*print_scr)(win, new_y, new_x, 0, 0, print_char);
@@ -104,12 +104,17 @@ void print_x_in_grid(int32_t grid_x, int32_t grid_y, int32_t x, int32_t y, int32
         int32_t cell_x = x - (grid_x * x_step);
         int32_t cell_y = y - (grid_y * y_step);
 
-        int32_t slope_cell = cell_x / cell_y;
+        int32_t slope_left_diag = cell_x / cell_y;
+        int32_t slope_right_diag = cell_x / (y_step - cell_y);
         int32_t slope_step = x_step / y_step;
 
+
         // \ diagonal
-        if (slope_cell == slope_step && (cell_x % cell_y) == cell_y - 1)
+        if (slope_left_diag == slope_step && (cell_x % cell_y) == cell_y - 1)
             sprintf(str_out, "X");
+        // / diagonal
+        else if (slope_right_diag == slope_step && (cell_x % (y_step - cell_y)) == y_step - cell_y - 1)
+            sprintf(str_out, "Y");
         else
             sprintf(str_out, " ");
     }
