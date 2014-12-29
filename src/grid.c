@@ -111,10 +111,10 @@ void print_x_in_grid(int32_t grid_x, int32_t grid_y, int32_t x, int32_t y, int32
 
         // \ diagonal
         if (slope_left_diag == slope_step && (cell_x % cell_y) == cell_y - 1)
-            sprintf(str_out, "X");
+            sprintf(str_out, "\\");
         // / diagonal
         else if (slope_right_diag == slope_step && (cell_x % (y_step - cell_y)) == y_step - cell_y - 1)
-            sprintf(str_out, "Y");
+            sprintf(str_out, "/");
         else
             sprintf(str_out, " ");
     }
