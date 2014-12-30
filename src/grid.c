@@ -73,7 +73,8 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
                 // It prints only the first digit.
                 //print_num_in_all_grid(((y / y_grid_step) * g.y_grid) + (x / x_grid_step), print_char);
                 //print_num_in_grid(2, 3, x, y, x_grid_step, y_grid_step, 7, print_char);
-                print_x_in_grid(1, 1, x, y, x_grid_step, y_grid_step, print_char);
+                //print_x_in_grid(1, 1, x, y, x_grid_step, y_grid_step, print_char);
+                print_o_in_grid(1, 2, x, y, x_grid_step, y_grid_step, print_char);
             }
 
             (*print_scr)(win, new_y, new_x, 0, 0, print_char);
@@ -117,6 +118,27 @@ void print_x_in_grid(int32_t grid_x, int32_t grid_y, int32_t x, int32_t y, int32
             sprintf(str_out, "/");
         else
             sprintf(str_out, " ");
+    }
+    else
+        sprintf(str_out, " ");
+
+}
+
+void print_o_in_grid(int32_t grid_x, int32_t grid_y, int32_t x, int32_t y, int32_t x_step, int32_t y_step, char *str_out)
+{
+    if (grid_x == (x / x_step) &&
+        grid_y == (y / y_step))
+    {
+        int32_t cell_x = x - (grid_x * x_step);
+        int32_t cell_y = y - (grid_y * y_step);
+
+        int32_t radius = MIN(x_step, y_step) / 2;
+
+        if ((cell_x - radius)*(cell_x - radius) + (cell_y - radius)*(cell_y - radius) < radius * radius)
+            sprintf(str_out, "O");
+        else
+            sprintf(str_out, " ");
+
     }
     else
         sprintf(str_out, " ");
