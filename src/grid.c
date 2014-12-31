@@ -93,7 +93,8 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
                 // Print in each grid the number of the grid "linearly"
                 // It doesn't work well with two digits and more numbers.
                 // It prints only the first digit.
-                print_num_in_all_grid(((y / y_grid_step) * g.y_grid) + (x / x_grid_step), print_char);
+                //print_num_in_all_grid(((y / y_grid_step) * g.y_grid) + (x / x_grid_step), print_char);
+                print_num_in_all_grid(win, new_x, new_y, ((y / y_grid_step) * g.y_grid) + (x / x_grid_step), color_str);
                 //print_num_in_grid(2, 3, x, y, x_grid_step, y_grid_step, 7, print_char);
                 //print_x_in_grid(1, 1, x, y, x_grid_step, y_grid_step, print_char);
                 //print_o_in_grid(1, 2, x, y, x_grid_step, y_grid_step, print_char);
@@ -104,9 +105,14 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
     }
 }
 
-void print_num_in_all_grid(int32_t num, char *str_out)
+void print_num_in_all_grid(WINDOW *win, int32_t x, int32_t y, int32_t num, void (*print_scr)(WINDOW *, uint32_t, uint32_t, int16_t, int16_t, const char *))
 {
+    char str_out[10];
+    memset(str_out, 0, sizeof(str_out));
+
     sprintf(str_out, "%d", num);
+
+    (*print_scr)(win, y, x, 0, 0, str_out);
 }
 
 void print_num_in_grid(int32_t grid_x, int32_t grid_y, int32_t x, int32_t y, int32_t x_step, int32_t y_step, int32_t num, char *str_out)
