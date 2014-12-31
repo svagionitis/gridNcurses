@@ -42,17 +42,33 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
     int32_t y_grid_step = grid_win_height / g.y_grid;
     int32_t x_grid_step = grid_win_width / g.x_grid;
 
-    int32_t y_remaining = grid_win_height % g.y_grid;
-    int32_t x_remaining = grid_win_width % g.x_grid;
-
-    int32_t new_max_height = grid_win_height - y_remaining;
-    int32_t new_max_width = grid_win_width - x_remaining;
-
     // For 1x1, 1x? and ?x1
     if (y_grid_step == grid_win_height)
         y_grid_step -= 1;
     if (x_grid_step == grid_win_width)
         x_grid_step -= 1;
+
+    int32_t y_remaining = grid_win_height % g.y_grid;
+    int32_t x_remaining = grid_win_width % g.x_grid;
+
+    // If x_remaining or y_remaining is 0 then
+    // new_max_height=grid_win_height or new_max_width=grid_win_width
+    // which we don't want.
+    if (y_remaining == 0)
+    {
+        y_grid_step -= 1;
+        // To find the new height with the changed step we use 
+        // the formula new_height = new_step * y_grid.
+        y_remaining = grid_win_height - (y_grid_step * g.y_grid);
+    }
+    if (x_remaining == 0)
+    {
+        x_grid_step -= 1;
+        x_remaining = grid_win_width - (x_grid_step * g.x_grid);
+    }
+
+    int32_t new_max_height = grid_win_height - y_remaining;
+    int32_t new_max_width = grid_win_width - x_remaining;
 
     for(int32_t y = 0;y <= new_max_height;y++)
     {
