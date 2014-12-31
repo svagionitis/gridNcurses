@@ -8,6 +8,10 @@ typedef struct grid
 {
     int32_t x_grid;
     int32_t y_grid;
+    uint8_t print_above;
+    uint8_t print_below;
+    uint8_t print_left;
+    uint8_t print_right;
 }grid_t;
 
 grid_t g;
