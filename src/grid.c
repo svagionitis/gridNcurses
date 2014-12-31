@@ -48,6 +48,12 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
     int32_t new_max_height = grid_win_height - y_remaining;
     int32_t new_max_width = grid_win_width - x_remaining;
 
+    // For 1x1, 1x? and ?x1
+    if (y_grid_step == grid_win_height)
+        y_grid_step -= 1;
+    if (x_grid_step == grid_win_width)
+        x_grid_step -= 1;
+
     for(int32_t y = 0;y <= new_max_height;y++)
     {
         // Adding the half of the remaining in order
@@ -60,21 +66,21 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
             char print_char[10];
             memset(print_char, 0, sizeof(print_char));
 
-            if (!(y % y_grid_step) && !(x % x_grid_step))
+            if ((y % y_grid_step) == 0 && (x % x_grid_step) == 0)
                 print_char[0] = '+';
-            else if (!(y % y_grid_step))
+            else if ((y % y_grid_step) == 0)
                 print_char[0] = '-';
-            else if (!(x % x_grid_step))
+            else if ((x % x_grid_step) == 0)
                 print_char[0] = '|';
             else if ((y % y_grid_step) && (x % x_grid_step))
             {
                 // Print in each grid the number of the grid "linearly"
                 // It doesn't work well with two digits and more numbers.
                 // It prints only the first digit.
-                //print_num_in_all_grid(((y / y_grid_step) * g.y_grid) + (x / x_grid_step), print_char);
+                print_num_in_all_grid(((y / y_grid_step) * g.y_grid) + (x / x_grid_step), print_char);
                 //print_num_in_grid(2, 3, x, y, x_grid_step, y_grid_step, 7, print_char);
                 //print_x_in_grid(1, 1, x, y, x_grid_step, y_grid_step, print_char);
-                print_o_in_grid(1, 2, x, y, x_grid_step, y_grid_step, print_char);
+                //print_o_in_grid(1, 2, x, y, x_grid_step, y_grid_step, print_char);
             }
 
             (*print_scr)(win, new_y, new_x, 0, 0, print_char);
