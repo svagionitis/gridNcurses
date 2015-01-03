@@ -42,21 +42,17 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
     int32_t y_grid_step = grid_win_height / g.y_grid;
     int32_t x_grid_step = grid_win_width / g.x_grid;
 
-    // For 1x1, 1x? and ?x1
-    if (y_grid_step == grid_win_height)
-        y_grid_step -= 1;
-    if (x_grid_step == grid_win_width)
-        x_grid_step -= 1;
-
     int32_t y_remaining = grid_win_height % g.y_grid;
     int32_t x_remaining = grid_win_width % g.x_grid;
 
-    // If x_remaining or y_remaining is 0 then
-    // new_max_height=grid_win_height or new_max_width=grid_win_width
-    // which we don't want.
+    // 1. If x_remaining or y_remaining is 0 then
+    //    new_max_height = grid_win_height or new_max_width = grid_win_width
+    //    which we don't want.
+    // 2. If 1x1 or ?x1 or 1x?, the x_remaining or y_remaining is again 0.
     if (y_remaining == 0)
     {
         y_grid_step -= 1;
+
         // To find the new height with the changed step we use 
         // the formula new_height = new_step * y_grid.
         y_remaining = grid_win_height - (y_grid_step * g.y_grid);
@@ -64,6 +60,7 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
     if (x_remaining == 0)
     {
         x_grid_step -= 1;
+
         x_remaining = grid_win_width - (x_grid_step * g.x_grid);
     }
 
@@ -95,7 +92,7 @@ void generate_grid(WINDOW *win, int32_t grid_win_height, int32_t grid_win_width,
                 // It prints only the first digit.
                 //print_num_in_all_grid(win, new_x, new_y, ((y / y_grid_step) * g.y_grid) + (x / x_grid_step), color_str);
                 print_num_in_grid(win, 2, 3, x, y, x_grid_step, y_grid_step, new_x, new_y, 7, color_str);
-                print_x_in_grid(win, 1, 1, x, y, x_grid_step, y_grid_step, new_x, new_y, color_str);
+                print_x_in_grid(win, 0, 0, x, y, x_grid_step, y_grid_step, new_x, new_y, color_str);
                 print_o_in_grid(win, 1, 2, x, y, x_grid_step, y_grid_step, new_x, new_y, color_str);
             }
 
