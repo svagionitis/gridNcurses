@@ -164,9 +164,12 @@ void print_o_in_grid(WINDOW *win, int32_t grid_x, int32_t grid_y, int32_t x, int
         int32_t cell_x = x - (grid_x * x_step);
         int32_t cell_y = y - (grid_y * y_step);
 
+        int32_t center_x = x_step / 2;
+        int32_t center_y = y_step / 2;
+
         int32_t radius = MIN(x_step, y_step) / 2;
 
-        if ((cell_x - radius)*(cell_x - radius) + (cell_y - radius)*(cell_y - radius) < radius * radius)
+        if ((cell_x - center_x)*(cell_x - center_x) + (cell_y - center_y)*(cell_y - center_y) < radius * radius)
             sprintf(str_out, "O");
         else
             sprintf(str_out, " ");
